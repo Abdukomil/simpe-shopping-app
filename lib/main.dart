@@ -47,7 +47,6 @@ class _GradeState extends State<Grade> {
     });
   }
 
-  //tovar qo'shish uchun yangi OYNA xosil qilivchi Funksiya
   void _starAddNewTransaction(BuildContext ctx) {
     //Oyna chiqarib beruvchi Function
     showModalBottomSheet(
