@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'models/product.dart';
 import 'package:json_test1/widgets/new_tansaction.dart';
 import 'widgets/transaction_list.dart';
+import 'widgets/chart.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,9 +34,14 @@ class Grade extends StatefulWidget {
 }
 
 class _GradeState extends State<Grade> {
+  List<Product> get _recentTransactions {
+    return _userTransaction.where((tx){
+      return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7),););
+    });
+    }
+
   //Product listini yaratish
   final List<Product> _userTransaction = [];
-
   //Boshqa Classdan "txtTitle" va "txtAmount" miqdorini qabul qilish
   void _addNewTransaction(String txtTitle, double txtAmount) {
     final newTx = Product(
@@ -77,6 +83,8 @@ class _GradeState extends State<Grade> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Card(),
+
             //1.TransactionListni ishga tushurish
             //2.TransactionLIstga LISTni yani _serTransactionni yuborish
             TransactionList(_userTransaction),
