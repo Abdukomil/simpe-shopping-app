@@ -1,7 +1,6 @@
 
 
-This project is a starting point for a Flutter application.
-
+This app is the first project for practicing flutter and you can register your product.
 
 
 Screen 1
