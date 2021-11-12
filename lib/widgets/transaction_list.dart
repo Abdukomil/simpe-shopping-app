@@ -14,7 +14,7 @@ class TransactionList extends StatelessWidget {
               children: [
                 Text(
                   // ignore: deprecated_member_use
-                  'Hali malumot yaratilmadi. Iltimos malumotni yaratib qaytada urinib ko\'ring',
+                  ("You have not entered any information yet. Click the button below!"),
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 SizedBox(height: 100),

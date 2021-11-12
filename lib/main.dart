@@ -35,8 +35,11 @@ class Grade extends StatefulWidget {
 class _GradeState extends State<Grade> {
   //Product listini yaratish
   final List<Product> _userTransaction = [];
+// List<Product> get newMethod => _recentTransactions;
+// }
 
-  Iterable<Product> get _recentTransactions {
+  // ignore: unused_element
+  List<Product> get _recentTransactions {
     return _userTransaction.where((tx) {
       return tx.date.isAfter(DateTime.now().subtract(
         Duration(days: 7),
@@ -84,9 +87,8 @@ class _GradeState extends State<Grade> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Card(_recentTransactions),
-
             //1.TransactionListni ishga tushurish
             //2.TransactionLIstga LISTni yani _serTransactionni yuborish
             TransactionList(_userTransaction),
