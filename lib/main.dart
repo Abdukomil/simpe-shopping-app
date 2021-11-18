@@ -48,10 +48,14 @@ class _GradeState extends State<Grade> {
   }
 
   //Boshqa Classdan "txtTitle" va "txtAmount" miqdorini qabul qilish
-  void _addNewTransaction(String txtTitle, double txtAmount) {
+  void _addNewTransaction(
+      String txtTitle, double txtAmount, DateTime choosenDate) {
     final newTx = Product(
-        id: 'null', title: txtTitle, amount: txtAmount, date: DateTime.now());
-
+        id: DateTime.now().toString(),
+        title: txtTitle,
+        amount: txtAmount,
+        date: choosenDate);
+    print(choosenDate);
     //Qabul qilingan miqdorni darxol yaratilgan Listga saqlash
     setState(() {
       _userTransaction.add(newTx);
@@ -68,6 +72,12 @@ class _GradeState extends State<Grade> {
           //3. va _addNewTransaction ishga tushib Listga malumotni qo'shadi
           return NewTransaction(_addNewTransaction);
         });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((element) => element.id == id);
+    });
   }
 
   @override
@@ -91,7 +101,7 @@ class _GradeState extends State<Grade> {
           children: [
             //1.TransactionListni ishga tushurish
             //2.TransactionLIstga LISTni yani _serTransactionni yuborish
-            TransactionList(_userTransaction),
+            TransactionList(_userTransaction, _deleteTransaction),
           ],
         ),
       ),

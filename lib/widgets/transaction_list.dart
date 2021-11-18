@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:json_test1/models/product.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Product> transaction;
-  TransactionList(this.transaction);
+  final Function deleteTx;
+  TransactionList(this.transaction, this.deleteTx);
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,6 @@ class TransactionList extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 SizedBox(height: 100),
-                // Image.network(
-                //   "https://reqres.in/img/faces/8-image.jpg",
-                // ),
                 Image.asset(
                   "assets/images/waiting.png",
                   fit: BoxFit.fitHeight,
@@ -32,40 +31,29 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (ctx, index) {
                 return Card(
-                  elevation: 10,
-                  margin: EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 90,
-                        width: 110,
-                        margin: EdgeInsets.only(right: 20, left: 10),
-                        decoration: BoxDecoration(),
-                        padding: EdgeInsets.all(0),
-                        child: Image(
-                          image: AssetImage(
-                            'images/divan.jpeg',
-                          ),
-                          fit: BoxFit.cover,
-                        ),
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  elevation: 5,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: EdgeInsets.all(6),
+                        child: FittedBox(
+                            child: Text('\$${transaction[index].amount}')),
                       ),
-                      Container(
-                        child: Column(
-                          children: [
-                            Text(transaction[index].title),
-                            Text(transaction[index].amount.toString() + "₩"),
-                            Text("" + transaction[index].date.toString()),
-                            // ignore: deprecated_member_use
-                            FlatButton(
-                              onPressed: () {},
-                              child: Text('Bay',
-                                  style: TextStyle(color: Colors.white)),
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                    ),
+                    title: Text(
+                      transaction[index].title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text(
+                        DateFormat.yMMMd().format(transaction[index].date)),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete_outlined),
+                      color: Theme.of(context).errorColor,
+                      iconSize: 35,
+                      onPressed: () => deleteTx(transaction[index].id),
+                    ),
                   ),
                 );
               },
