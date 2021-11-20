@@ -5,12 +5,9 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      child: Card(
-        child: Text('Chart'),
-        elevation: 5,
-      ),
+    return Card(
+      child: Text('Chart'),
+      elevation: 5,
     );
   }
 }

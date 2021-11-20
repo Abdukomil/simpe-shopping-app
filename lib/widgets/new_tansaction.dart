@@ -51,61 +51,56 @@ class _NewTransactionState extends State<NewTransaction> {
     return Card(
       elevation: 5,
       child: Container(
+        height: 300,
         padding: EdgeInsets.all(14),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: 'Title'),
-              controller: _titleController,
-              keyboardType: TextInputType.text,
-              onSubmitted: (_) => _submitData(),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Amount'),
-              // onChanged: (val) => amountInput = val,
-              controller: _amountController,
-              onSubmitted: (_) => _submitData(),
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(_selectedDate == null
-                        ? 'No date shoosen!'
-                        : 'Picked date: ${DateFormat.yMd().format(_selectedDate!)}'),
-                  ),
-                  // ignore: deprecated_member_use
-                  FlatButton(
-                      onPressed: _presentDatePiker,
-                      textColor: Theme.of(context).primaryColor,
-                      child: Text(
-                        'Choose Date',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ))
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                controller: _titleController,
+                keyboardType: TextInputType.text,
+                onSubmitted: (_) => _submitData(),
               ),
-            ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Amount'),
+                // onChanged: (val) => amountInput = val,
+                controller: _amountController,
+                onSubmitted: (_) => _submitData(),
+              ),
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(_selectedDate == null
+                          ? 'No date shoosen!'
+                          : 'Picked date: ${DateFormat.yMd().format(_selectedDate!)}'),
+                    ),
+                    // ignore: deprecated_member_use
+                    FlatButton(
+                        onPressed: _presentDatePiker,
+                        textColor: Theme.of(context).primaryColor,
+                        child: Text(
+                          'Choose Date',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ))
+                  ],
+                ),
+              ),
 
-            // ignore: deprecated_member_use
-            RaisedButton(
-                padding: EdgeInsets.symmetric(horizontal: 100, vertical: 7),
-                onPressed: _submitData,
-                color: Theme.of(context).primaryColor,
-                child: Text(
-                  'Add product',
-                  style: TextStyle(color: Colors.white),
-                )),
-            // ignore: deprecated_member_use
-            FlatButton(
-                padding: EdgeInsets.symmetric(horizontal: 100, vertical: 7),
-                onPressed: () {},
-                color: Theme.of(context).primaryColor,
-                child: Text(
-                  'Delete data',
-                  style: TextStyle(color: Colors.white),
-                )),
-          ],
+              // ignore: deprecated_member_use
+              RaisedButton(
+                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 7),
+                  onPressed: _submitData,
+                  color: Theme.of(context).primaryColor,
+                  child: Text(
+                    'Add product',
+                    style: TextStyle(color: Colors.white),
+                  )),
+              // ignore: deprecated_member_use
+            ],
+          ),
         ),
       ),
     );

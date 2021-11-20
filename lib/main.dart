@@ -83,27 +83,36 @@ class _GradeState extends State<Grade> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Online Shop',
-          style: TextStyle(fontFamily: 'Open Sans'),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () => _starAddNewTransaction(context),
-              icon: Icon(Icons.add))
-        ],
+    final appBar = AppBar(
+      title: Text(
+        'Online Shop',
+        style: TextStyle(fontFamily: 'Open Sans'),
       ),
+      centerTitle: true,
+      actions: [
+        IconButton(
+            onPressed: () => _starAddNewTransaction(context),
+            icon: Icon(Icons.add))
+      ],
+    );
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height) *
+                    0.3,
+                child: Chart()),
             //1.TransactionListni ishga tushurish
             //2.TransactionLIstga LISTni yani _serTransactionni yuborish
-            TransactionList(_userTransaction, _deleteTransaction),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height) *
+                    0.6,
+                child: TransactionList(_userTransaction, _deleteTransaction)),
           ],
         ),
       ),
