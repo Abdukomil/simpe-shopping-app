@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_test1/widgets/chart.dart';
 import 'models/product.dart';
 import 'package:json_test1/widgets/new_tansaction.dart';
 import 'widgets/transaction_list.dart';
@@ -99,6 +100,7 @@ class _GradeState extends State<Grade> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Chart(),
             //1.TransactionListni ishga tushurish
             //2.TransactionLIstga LISTni yani _serTransactionni yuborish
             TransactionList(_userTransaction, _deleteTransaction),
