@@ -19,9 +19,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'myApp',
       theme: ThemeData(
-          primarySwatch: Colors.blue,
-          accentColor: Colors.purple,
-          fontFamily: 'OpenSans'),
+          fontFamily: 'OpenSans',
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
+              .copyWith(secondary: Colors.purple)),
       home: Grade(),
     );
   }
