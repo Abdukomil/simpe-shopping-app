@@ -81,6 +81,8 @@ class _GradeState extends State<Grade> {
     });
   }
 
+  bool _showChart = false;
+
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
@@ -101,18 +103,34 @@ class _GradeState extends State<Grade> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-                height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height) *
-                    0.3,
-                child: Chart()),
-            //1.TransactionListni ishga tushurish
-            //2.TransactionLIstga LISTni yani _serTransactionni yuborish
-            Container(
-                height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height) *
-                    0.6,
-                child: TransactionList(_userTransaction, _deleteTransaction)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Switch(
+                  value: _showChart,
+                  onChanged: (val) {
+                    setState(() {
+                      _showChart = val;
+                    });
+                  },
+                ),
+                Text("Show Chart")
+              ],
+            ),
+            _showChart
+                ? Container(
+                    height: (MediaQuery.of(context).size.height -
+                            appBar.preferredSize.height) *
+                        0.3,
+                    child: Chart())
+                //1.TransactionListni ishga tushurish
+                //2.TransactionLIstga LISTni yani _serTransactionni yuborish
+                : Container(
+                    height: (MediaQuery.of(context).size.height -
+                            appBar.preferredSize.height) *
+                        0.6,
+                    child:
+                        TransactionList(_userTransaction, _deleteTransaction)),
           ],
         ),
       ),

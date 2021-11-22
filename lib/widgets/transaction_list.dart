@@ -22,8 +22,7 @@ class TransactionList extends StatelessWidget {
                 Image.asset(
                   "assets/images/waiting.png",
                   fit: BoxFit.fitHeight,
-                  height: 300,
-                  width: 300,
+                  height: constrains.maxHeight * 0.6,
                 )
               ],
             );
