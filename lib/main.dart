@@ -129,8 +129,8 @@ class _GradeState extends State<Grade> {
                     height: (MediaQuery.of(context).size.height -
                             appBar.preferredSize.height) *
                         0.6,
-                    child:
-                        TransactionList(_userTransaction, _deleteTransaction)),
+                    child: TransactionList(
+                        _userTransaction, _deleteTransaction, _showChart)),
           ],
         ),
       ),
