@@ -5,7 +5,8 @@ import 'package:json_test1/models/product.dart';
 class TransactionList extends StatelessWidget {
   final List<Product> transaction;
   final Function deleteTx;
-  TransactionList(this.transaction, this.deleteTx);
+  final bool showChart;
+  TransactionList(this.transaction, this.deleteTx, this.showChart);
 
   @override
   Widget build(BuildContext context) {
