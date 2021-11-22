@@ -10,22 +10,24 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return transaction.isEmpty
-        ? Column(
-            children: [
-              Text(
-                // ignore: deprecated_member_use
-                ("You have not entered any information yet. Click the button below!"),
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              SizedBox(height: 100),
-              Image.asset(
-                "assets/images/waiting.png",
-                fit: BoxFit.fitHeight,
-                height: 300,
-                width: 300,
-              )
-            ],
-          )
+        ? LayoutBuilder(builder: (ctx, constrains) {
+            return Column(
+              children: [
+                Text(
+                  // ignore: deprecated_member_use
+                  ("You have not entered any information yet. Click the button below!"),
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                SizedBox(height: 100),
+                Image.asset(
+                  "assets/images/waiting.png",
+                  fit: BoxFit.fitHeight,
+                  height: 300,
+                  width: 300,
+                )
+              ],
+            );
+          })
         : ListView.builder(
             itemBuilder: (ctx, index) {
               return Card(
