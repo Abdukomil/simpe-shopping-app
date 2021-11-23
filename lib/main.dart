@@ -85,15 +85,19 @@ class _GradeState extends State<Grade> {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscope = MediaQuery.of(context).orientation;
     final appBar = AppBar(
       title: Text(
-        'Online Shop',
+        '',
         style: TextStyle(fontFamily: 'Open Sans'),
       ),
       centerTitle: true,
       actions: [
         IconButton(
-            onPressed: () => _starAddNewTransaction(context),
+            onPressed: () {
+              _starAddNewTransaction(context);
+              print(isLandscope);
+            },
             icon: Icon(Icons.add))
       ],
     );
