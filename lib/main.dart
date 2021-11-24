@@ -85,7 +85,8 @@ class _GradeState extends State<Grade> {
 
   @override
   Widget build(BuildContext context) {
-    final isLandscope = MediaQuery.of(context).orientation;
+    final isLandscope =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     final appBar = AppBar(
       title: Text(
         '',
@@ -101,6 +102,13 @@ class _GradeState extends State<Grade> {
             icon: Icon(Icons.add))
       ],
     );
+    final txListWidget = Container(
+        height:
+            (MediaQuery.of(context).size.height - appBar.preferredSize.height) *
+                0.6,
+        child:
+            TransactionList(_userTransaction, _deleteTransaction, _showChart));
+
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
@@ -110,31 +118,28 @@ class _GradeState extends State<Grade> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Switch(
-                  value: _showChart,
-                  onChanged: (val) {
-                    setState(() {
-                      _showChart = val;
-                    });
-                  },
-                ),
-                Text("Show Chart")
+                if (!isLandscope)
+                  Switch(
+                    value: _showChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChart = val;
+                      });
+                    },
+                  ),
+                if (!isLandscope) Text("Show Chart")
               ],
             ),
-            _showChart
-                ? Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar.preferredSize.height) *
-                        0.3,
-                    child: Chart())
-                //1.TransactionListni ishga tushurish
-                //2.TransactionLIstga LISTni yani _serTransactionni yuborish
-                : Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar.preferredSize.height) *
-                        0.6,
-                    child: TransactionList(
-                        _userTransaction, _deleteTransaction, _showChart)),
+
+            if (_showChart)
+              Container(
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height) *
+                      0.3,
+                  child: Chart()),
+            //1.TransactionListni ishga tushurish
+            //2.TransactionLIstga LISTni yani _serTransactionni yuborish
+            txListWidget
           ],
         ),
       ),
