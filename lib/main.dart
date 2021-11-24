@@ -108,6 +108,25 @@ class _GradeState extends State<Grade> {
                 0.6,
         child:
             TransactionList(_userTransaction, _deleteTransaction, _showChart));
+    final chartWidget = Container(
+        height:
+            (MediaQuery.of(context).size.height - appBar.preferredSize.height) *
+                0.3,
+        child: Chart());
+    final switchWidget = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Show Chart"),
+        Switch(
+          value: _showChart,
+          onChanged: (val) {
+            setState(() {
+              _showChart = val;
+            });
+          },
+        )
+      ],
+    );
 
     return Scaffold(
       appBar: appBar,
@@ -115,30 +134,8 @@ class _GradeState extends State<Grade> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (!isLandscope)
-                  Switch(
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                  ),
-                if (!isLandscope) Text("Show Chart")
-              ],
-            ),
-
-            if (_showChart)
-              Container(
-                  height: (MediaQuery.of(context).size.height -
-                          appBar.preferredSize.height) *
-                      0.3,
-                  child: Chart()),
-            //1.TransactionListni ishga tushurish
-            //2.TransactionLIstga LISTni yani _serTransactionni yuborish
+            if (!isLandscope) switchWidget,
+            if (_showChart) chartWidget,
             txListWidget
           ],
         ),
