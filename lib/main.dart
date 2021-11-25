@@ -17,6 +17,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'myApp',
       theme: ThemeData(
           fontFamily: 'OpenSans',
@@ -98,6 +99,7 @@ class _GradeState extends State<Grade> {
             onPressed: () {
               _starAddNewTransaction(context);
               print(isLandscope);
+              print(MediaQuery.of(context).size.width);
             },
             icon: Icon(Icons.add))
       ],
@@ -134,6 +136,7 @@ class _GradeState extends State<Grade> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            if (isLandscope) chartWidget,
             if (!isLandscope) switchWidget,
             if (_showChart) chartWidget,
             txListWidget
