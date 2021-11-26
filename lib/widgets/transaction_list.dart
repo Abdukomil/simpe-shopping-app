@@ -19,12 +19,18 @@ class TransactionList extends StatelessWidget {
                   ("You have not entered any information yet. Click the button below!"),
                   style: Theme.of(context).textTheme.headline6,
                 ),
-                SizedBox(height: 100),
-                Image.asset(
-                  "assets/images/waiting.png",
-                  fit: BoxFit.fitHeight,
-                  height: constrains.maxHeight * 0.6,
-                )
+                MediaQuery.of(context).orientation == Orientation.landscape
+                    ? SizedBox(height: 20)
+                    : SizedBox(height: 45),
+                MediaQuery.of(context).orientation == Orientation.landscape
+                    ? Image.asset("assets/images/waiting.png",
+                        fit: BoxFit.fitHeight,
+                        height: constrains.maxHeight * 0.7)
+                    : Image.asset(
+                        "assets/images/waiting.png",
+                        fit: BoxFit.fitHeight,
+                        height: constrains.maxHeight * 0.6,
+                      ),
               ],
             );
           })
