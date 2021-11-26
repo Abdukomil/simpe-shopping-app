@@ -60,10 +60,19 @@ class TransactionList extends StatelessWidget {
                           // ignore: deprecated_member_use
                           ? FlatButton.icon(
                               onPressed: () => deleteTx(transaction[index].id),
-                              icon: Icon(Icons.delete_outlined),
-                              label: Text("delete"),
-                              color: Theme.of(context).errorColor,
-                            )
+                              icon: Icon(
+                                Icons.delete_outlined,
+                                size: 35,
+                                color: Colors.red,
+                              ),
+                              label: Text(
+                                "delete",
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              color: Colors.white)
                           : IconButton(
                               icon: Icon(Icons.delete_outlined),
                               color: Theme.of(context).errorColor,

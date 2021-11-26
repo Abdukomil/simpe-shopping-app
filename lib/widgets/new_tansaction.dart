@@ -49,63 +49,121 @@ class _NewTransactionState extends State<NewTransaction> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5,
-      child: Container(
-        padding: EdgeInsets.only(
-            top: 10,
-            left: 10,
-            right: 10,
-            bottom: MediaQuery.of(context).viewInsets.bottom + 10),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              TextField(
-                decoration: InputDecoration(labelText: 'Title'),
-                controller: _titleController,
-                keyboardType: TextInputType.text,
-                onSubmitted: (_) => _submitData(),
-              ),
-              TextField(
-                decoration: InputDecoration(labelText: 'Amount'),
-                // onChanged: (val) => amountInput = val,
-                controller: _amountController,
-                onSubmitted: (_) => _submitData(),
-              ),
-              Container(
-                height: 70,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(_selectedDate == null
-                          ? 'No date shoosen!'
-                          : 'Picked date: ${DateFormat.yMd().format(_selectedDate!)}'),
-                    ),
-                    // ignore: deprecated_member_use
-                    FlatButton(
-                        onPressed: _presentDatePiker,
-                        textColor: Theme.of(context).primaryColor,
-                        child: Text(
-                          'Choose Date',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ))
-                  ],
-                ),
-              ),
+        elevation: 5,
+        child: MediaQuery.of(context).orientation == Orientation.landscape
+            ? Container(
+                padding: EdgeInsets.only(
+                    top: 10,
+                    left: 10,
+                    right: 10,
+                    bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 70,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(_selectedDate == null
+                                  ? 'No date shoosen!'
+                                  : 'Picked date: ${DateFormat.yMd().format(_selectedDate!)}'),
+                            ),
 
-              // ignore: deprecated_member_use
-              RaisedButton(
-                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 7),
-                  onPressed: _submitData,
-                  color: Theme.of(context).primaryColor,
-                  child: Text(
-                    'Add product',
-                    style: TextStyle(color: Colors.white),
-                  )),
-              // ignore: deprecated_member_use
-            ],
-          ),
-        ),
-      ),
-    );
+                            // ignore: deprecated_member_use
+                            RaisedButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 100, vertical: 7),
+                                onPressed: _submitData,
+                                color: Theme.of(context).primaryColor,
+                                child: Text(
+                                  'Add product',
+                                  style: TextStyle(color: Colors.white),
+                                )),
+
+                            // ignore: deprecated_member_use
+                            FlatButton(
+                                onPressed: _presentDatePiker,
+                                textColor: Theme.of(context).primaryColor,
+                                child: Text(
+                                  'Choose Date',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                )),
+                          ],
+                        ),
+                      ),
+                      TextField(
+                        decoration: InputDecoration(labelText: 'Title'),
+                        controller: _titleController,
+                        keyboardType: TextInputType.text,
+                        onSubmitted: (_) => _submitData(),
+                      ),
+                      TextField(
+                        decoration: InputDecoration(labelText: 'Amount'),
+                        // onChanged: (val) => amountInput = val,
+                        controller: _amountController,
+                        onSubmitted: (_) => _submitData(),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            : Container(
+                padding: EdgeInsets.only(
+                    top: 10,
+                    left: 10,
+                    right: 10,
+                    bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(labelText: 'Title'),
+                        controller: _titleController,
+                        keyboardType: TextInputType.text,
+                        onSubmitted: (_) => _submitData(),
+                      ),
+                      TextField(
+                        decoration: InputDecoration(labelText: 'Amount'),
+                        // onChanged: (val) => amountInput = val,
+                        controller: _amountController,
+                        onSubmitted: (_) => _submitData(),
+                      ),
+                      Container(
+                        height: 70,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(_selectedDate == null
+                                  ? 'No date shoosen!'
+                                  : 'Picked date: ${DateFormat.yMd().format(_selectedDate!)}'),
+                            ),
+                            // ignore: deprecated_member_use
+                            FlatButton(
+                                onPressed: _presentDatePiker,
+                                textColor: Theme.of(context).primaryColor,
+                                child: Text(
+                                  'Choose Date',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ))
+                          ],
+                        ),
+                      ),
+
+                      // ignore: deprecated_member_use
+                      RaisedButton(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 100, vertical: 7),
+                          onPressed: _submitData,
+                          color: Theme.of(context).primaryColor,
+                          child: Text(
+                            'Add product',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                      // ignore: deprecated_member_use
+                    ],
+                  ),
+                ),
+              ));
   }
 }
