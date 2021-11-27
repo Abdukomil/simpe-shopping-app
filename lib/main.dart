@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:json_test1/widgets/chart.dart';
 import 'models/product.dart';
+import 'dart:io';
 import 'package:json_test1/widgets/new_tansaction.dart';
 import 'widgets/transaction_list.dart';
 
@@ -144,10 +145,12 @@ class _GradeState extends State<Grade> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _starAddNewTransaction(context),
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              onPressed: () => _starAddNewTransaction(context),
+              child: Icon(Icons.add),
+            ),
     );
   }
 }
