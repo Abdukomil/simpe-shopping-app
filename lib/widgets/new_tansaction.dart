@@ -160,7 +160,9 @@ class _NewTransactionState extends State<NewTransaction> {
                             'Add product',
                             style: TextStyle(color: Colors.white),
                           )),
-                      // ignore: deprecated_member_use
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                      )
                     ],
                   ),
                 ),

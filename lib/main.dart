@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:json_test1/widgets/chart.dart';
 import 'models/product.dart';
@@ -89,6 +90,7 @@ class _GradeState extends State<Grade> {
   Widget build(BuildContext context) {
     final isLandscope =
         MediaQuery.of(context).orientation == Orientation.portrait;
+
     final appBar = AppBar(
       title: Text(
         '',
@@ -100,6 +102,7 @@ class _GradeState extends State<Grade> {
             onPressed: () {
               _starAddNewTransaction(context);
               print(isLandscope);
+              print(MediaQuery.of(context).size.height);
               print(MediaQuery.of(context).size.width);
             },
             icon: Icon(Icons.add))
@@ -130,27 +133,47 @@ class _GradeState extends State<Grade> {
         )
       ],
     );
-
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (isLandscope) chartWidget,
-            if (!isLandscope) switchWidget,
-            if (_showChart) chartWidget,
-            txListWidget
-          ],
-        ),
+    final bodyPage = SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (isLandscope) chartWidget,
+          if (!isLandscope) switchWidget,
+          if (_showChart) chartWidget,
+          txListWidget
+        ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Platform.isIOS
-          ? Container()
-          : FloatingActionButton(
-              onPressed: () => _starAddNewTransaction(context),
-              child: Icon(Icons.add),
-            ),
     );
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            child: bodyPage,
+            navigationBar: CupertinoNavigationBar(
+              backgroundColor: CupertinoColors.systemGrey.withOpacity(0.5),
+              middle: const Text("Shopping app"),
+            ),
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (isLandscope) chartWidget,
+                  if (!isLandscope) switchWidget,
+                  if (_showChart) chartWidget,
+                  txListWidget
+                ],
+              ),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: Platform.isIOS
+                ? Container()
+                : FloatingActionButton(
+                    onPressed: () => _starAddNewTransaction(context),
+                    child: Icon(Icons.add),
+                  ),
+          );
   }
 }
