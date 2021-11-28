@@ -91,9 +91,13 @@ class _GradeState extends State<Grade> {
     final isLandscope =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
-    final appBar = AppBar(
+    final appBar =
+        //if Platform.isIOS
+        // ? CupertinoNavigationBar()
+        // :
+        AppBar(
       title: Text(
-        '',
+        'GIFT BOX',
         style: TextStyle(fontFamily: 'Open Sans'),
       ),
       centerTitle: true,
@@ -145,35 +149,47 @@ class _GradeState extends State<Grade> {
       ),
     );
 
-    return Platform.isIOS
-        ? CupertinoPageScaffold(
-            child: bodyPage,
-            navigationBar: CupertinoNavigationBar(
-              backgroundColor: CupertinoColors.systemGrey.withOpacity(0.5),
-              middle: const Text("Shopping app"),
+    return
+        //if Platform.isIOS
+        //     ? CupertinoPageScaffold(
+        //         child: bodyPage,
+        //         navigationBar: CupertinoNavigationBar(
+        //             backgroundColor: CupertinoColors.systemGrey.withOpacity(0.5),
+        //             middle: const Text("Shopping app"),
+        //             leading: Container(
+        //               padding: EdgeInsets.only(bottom: 2),
+        //               child: CupertinoButton(
+        //                   onPressed: () {
+        //                     _starAddNewTransaction(context);
+        //                   },
+        //                   child: Icon(
+        //                     Icons.add,
+        //                     size: 30,
+        //                     color: CupertinoColors.darkBackgroundGray,
+        //                   )),
+        //             )),
+        //       )
+        //     :
+        Scaffold(
+      appBar: appBar,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (isLandscope) chartWidget,
+            if (!isLandscope) switchWidget,
+            if (_showChart) chartWidget,
+            txListWidget
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              onPressed: () => _starAddNewTransaction(context),
+              child: Icon(Icons.add),
             ),
-          )
-        : Scaffold(
-            appBar: appBar,
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (isLandscope) chartWidget,
-                  if (!isLandscope) switchWidget,
-                  if (_showChart) chartWidget,
-                  txListWidget
-                ],
-              ),
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: Platform.isIOS
-                ? Container()
-                : FloatingActionButton(
-                    onPressed: () => _starAddNewTransaction(context),
-                    child: Icon(Icons.add),
-                  ),
-          );
+    );
   }
 }
