@@ -91,11 +91,18 @@ class _GradeState extends State<Grade> {
     final isLandscope =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
-    final appBar =
-        //if Platform.isIOS
-        // ? CupertinoNavigationBar()
-        // :
-        AppBar(
+    final PreferredSizeWidget isIOSAppBar = CupertinoNavigationBar(
+      middle: Text("GIFT BOX"),
+      trailing: Row(
+        children: [
+          GestureDetector(
+            child: Icon(CupertinoIcons.add),
+            onTap: () => _starAddNewTransaction(context),
+          )
+        ],
+      ),
+    );
+    final PreferredSizeWidget isAndroidAppBar = AppBar(
       title: Text(
         'GIFT BOX',
         style: TextStyle(fontFamily: 'Open Sans'),
@@ -112,6 +119,7 @@ class _GradeState extends State<Grade> {
             icon: Icon(Icons.add))
       ],
     );
+    final appBar = Platform.isIOS ? isIOSAppBar : isAndroidAppBar;
     final txListWidget = Container(
         height:
             (MediaQuery.of(context).size.height - appBar.preferredSize.height) *
@@ -126,8 +134,13 @@ class _GradeState extends State<Grade> {
     final switchWidget = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Show Chart"),
-        Switch(
+        Text(
+          "Show Chart",
+          style: Theme.of(context).textTheme.subtitle1,
+        ),
+        Switch.adaptive(
+          // ignore: deprecated_member_use
+          activeColor: Theme.of(context).accentColor,
           value: _showChart,
           onChanged: (val) {
             setState(() {
@@ -137,7 +150,8 @@ class _GradeState extends State<Grade> {
         )
       ],
     );
-    final bodyPage = SingleChildScrollView(
+    final bodyPage = SafeArea(
+        child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -147,49 +161,34 @@ class _GradeState extends State<Grade> {
           txListWidget
         ],
       ),
-    );
+    ));
 
-    return
-        //if Platform.isIOS
-        //     ? CupertinoPageScaffold(
-        //         child: bodyPage,
-        //         navigationBar: CupertinoNavigationBar(
-        //             backgroundColor: CupertinoColors.systemGrey.withOpacity(0.5),
-        //             middle: const Text("Shopping app"),
-        //             leading: Container(
-        //               padding: EdgeInsets.only(bottom: 2),
-        //               child: CupertinoButton(
-        //                   onPressed: () {
-        //                     _starAddNewTransaction(context);
-        //                   },
-        //                   child: Icon(
-        //                     Icons.add,
-        //                     size: 30,
-        //                     color: CupertinoColors.darkBackgroundGray,
-        //                   )),
-        //             )),
-        //       )
-        //     :
-        Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (isLandscope) chartWidget,
-            if (!isLandscope) switchWidget,
-            if (_showChart) chartWidget,
-            txListWidget
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Platform.isIOS
-          ? Container()
-          : FloatingActionButton(
-              onPressed: () => _starAddNewTransaction(context),
-              child: Icon(Icons.add),
-            ),
-    );
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            child: bodyPage,
+            navigationBar: CupertinoNavigationBar(
+              middle: Text('GIFT BOX'),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    child: Icon(CupertinoIcons.add),
+                    onTap: () => _starAddNewTransaction(context),
+                  )
+                ],
+              ),
+            ))
+        : Scaffold(
+            appBar: appBar,
+            body: bodyPage,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: Platform.isIOS
+                ? Container()
+                : FloatingActionButton(
+                    onPressed: () => _starAddNewTransaction(context),
+                    child: Icon(Icons.add),
+                  ),
+          );
   }
 }
