@@ -49,13 +49,9 @@ class _NewTransactionState extends State<NewTransaction> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-            side: BorderSide(width: 5, color: Colors.green)),
-        elevation: 5,
         child: MediaQuery.of(context).orientation == Orientation.landscape
             ? Container(
+                //if landscope....
                 padding: EdgeInsets.only(
                     top: 10,
                     left: 10,
