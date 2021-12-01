@@ -156,7 +156,7 @@ class _NewTransactionState extends State<NewTransaction> {
                                     onPressed: _presentDatePiker,
                                     textColor: Theme.of(context).primaryColor,
                                     child: Text(
-                                      'Choose Date',
+                                      'Ch Date',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ))
