@@ -36,51 +36,56 @@ class TransactionList extends StatelessWidget {
           })
         : ListView.builder(
             itemBuilder: (ctx, index) {
-              return Card(
-                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                elevation: 5,
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
-                        child: Padding(
-                          padding: EdgeInsets.all(6),
-                          child: FittedBox(
-                              child: Text('\$${transaction[index].amount}')),
+              return Dismissible(
+                key: UniqueKey(),
+                child: Card(
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  elevation: 5,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: CircleAvatar(
+                          radius: 30,
+                          child: Padding(
+                            padding: EdgeInsets.all(6),
+                            child: FittedBox(
+                                child: Text('\$${transaction[index].amount}')),
+                          ),
                         ),
-                      ),
-                      title: Text(
-                        transaction[index].title,
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                      subtitle: Text(
-                          DateFormat.yMMMd().format(transaction[index].date)),
-                      trailing: MediaQuery.of(context).size.width > 390
-                          // ignore: deprecated_member_use
-                          ? FlatButton.icon(
-                              onPressed: () => deleteTx(transaction[index].id),
-                              icon: Icon(
-                                Icons.delete_outlined,
-                                size: 35,
-                                color: Colors.red,
+                        title: Text(
+                          transaction[index].title,
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        subtitle: Text(
+                            DateFormat.yMMMd().format(transaction[index].date)),
+                        trailing: MediaQuery.of(context).size.width > 390
+                            // ignore: deprecated_member_use
+                            ? FlatButton.icon(
+                                onPressed: () =>
+                                    deleteTx(transaction[index].id),
+                                icon: Icon(
+                                  Icons.delete_outlined,
+                                  size: 35,
+                                  color: Colors.red,
+                                ),
+                                label: Text(
+                                  "delete",
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                color: Colors.white)
+                            : IconButton(
+                                icon: Icon(Icons.delete_outlined),
+                                color: Theme.of(context).errorColor,
+                                iconSize: 35,
+                                onPressed: () =>
+                                    deleteTx(transaction[index].id),
                               ),
-                              label: Text(
-                                "delete",
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              color: Colors.white)
-                          : IconButton(
-                              icon: Icon(Icons.delete_outlined),
-                              color: Theme.of(context).errorColor,
-                              iconSize: 35,
-                              onPressed: () => deleteTx(transaction[index].id),
-                            ),
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
